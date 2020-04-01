@@ -1,0 +1,26 @@
+service: leonor
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+    - .vscode/**
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: eu-west-1
+
+functions:
+  request-assistance:
+    handler: handler.request_assistance
+    events:
+      - http:
+          path: appointments/schedule
+          method: post
+    environment:
+      TELEGRAM_TOKEN: '<INSERT YOUR TOKEN>'
+      CHAT_ID: '<INSERT YOUR TOKEN>'
